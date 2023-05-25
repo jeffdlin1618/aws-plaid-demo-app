@@ -1,0 +1,264 @@
+{
+	"info": {
+		"_postman_id": "f14ad973-e08f-47c9-a05d-8d2d9195e729",
+		"name": "Plaid APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "729786"
+	},
+	"item": [
+		{
+			"name": "Create Item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"publicToken = response.public_token;",
+							"pm.environment.set(\"public_token\", publicToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"client_id\": \"{{client_id}}\",\n  \"secret\": \"{{secret_key}}\",\n  \"institution_id\": \"ins_20\",\n  \"initial_products\": [\"auth\"],\n  \"options\": {\n    \"webhook\": \"https://www.genericwebhookurl.com/webhook\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env_url}}/sandbox/public_token/create",
+					"protocol": "https",
+					"host": [
+						"{{env_url}}"
+					],
+					"path": [
+						"sandbox",
+						"public_token",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Exchange token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"accessToken = response.access_token;",
+							"pm.environment.set(\"access_token\", accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"client_id\": \"{{client_id}}\",\n  \"secret\": \"{{secret_key}}\",\n  \"public_token\": \"{{public_token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env_url}}/item/public_token/exchange",
+					"protocol": "https",
+					"host": [
+						"{{env_url}}"
+					],
+					"path": [
+						"item",
+						"public_token",
+						"exchange"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Members",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"client_id\": \"{{client_id}}\",\n\t\"secret\": \"{{secret_key}}\",\n\t\"access_token\": \"{{access_token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env_url}}/auth/get",
+					"protocol": "https",
+					"host": [
+						"{{env_url}}"
+					],
+					"path": [
+						"auth",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Member Details",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"client_id\": \"{{client_id}}\",\n  \"secret\": \"{{secret_key}}\",\n  \"access_token\": \"{{access_token}}\",\n  \"options\":{\n      \"account_ids\": [\"NGyXJ7GDqvhB1yRqyvgmi3VMR3pd9xtnwj6on\"]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env_url}}/identity/get",
+					"protocol": "https",
+					"host": [
+						"{{env_url}}"
+					],
+					"path": [
+						"identity",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get transaction data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"client_id\": \"{{client_id}}\",\n  \"secret\": \"{{secret_key}}\",\n  \"access_token\": \"{{access_token}}\",\n  \"start_date\": \"2023-04-14\",\n  \"end_date\": \"2024-04-17\",\n  \"options\": {\n    \"account_ids\": [\"NGyXJ7GDqvhB1yRqyvgmi3VMR3pd9xtnwj6on\"]\n  } \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env_url}}/transactions/get",
+					"protocol": "https",
+					"host": [
+						"{{env_url}}"
+					],
+					"path": [
+						"transactions",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get member balance",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"client_id\": \"{{client_id}}\",\n  \"secret\": \"{{secret_key}}\",\n  \"access_token\": \"{{access_token}}\",\n  \"options\":{\n      \"account_ids\":[\"NGyXJ7GDqvhB1yRqyvgmi3VMR3pd9xtnwj6on\"]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env_url}}/accounts/balance/get",
+					"protocol": "https",
+					"host": [
+						"{{env_url}}"
+					],
+					"path": [
+						"accounts",
+						"balance",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Incremental Transactions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"client_id\": \"{{client_id}}\",\n  \"secret\": \"{{secret_key}}\",\n  \"access_token\": \"{{access_token}}\",\n  \"count\": 5,\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env_url}}/transactions/sync",
+					"protocol": "https",
+					"host": [
+						"{{env_url}}"
+					],
+					"path": [
+						"transactions",
+						"sync"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Z-Create Item",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"client_id\": \"{{client_id}}\",\n  \"secret\": \"{{secret_key}}\",\n  \"institution_id\": \"ins_20\",\n  \"initial_products\": [\"auth\"],\n  \"options\": {\n    \"webhook\": \"https://www.genericwebhookurl.com/webhook\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/create_link_token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"create_link_token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

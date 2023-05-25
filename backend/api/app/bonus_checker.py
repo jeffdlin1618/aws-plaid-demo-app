@@ -392,7 +392,8 @@ def bonus_checker():
                     # Condition checker for all the functions
                     if start_condition and expiry_condition and maintain_condition and constraint_condition_index != -1:
                         print(account, "won bonus", bank_check.get_bonus(
-                            constraint_condition_index).get("amount"))
-
+                            constraint_condition_index).get("amount"), constraint_condition_index)
+                    else:
+                        print(account, " waiting ", bank_check.get_bonus(0))
     except botocore.exceptions.ClientError:
         raise
